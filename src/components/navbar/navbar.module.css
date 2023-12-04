@@ -1,0 +1,39 @@
+.navbar{
+    background-color: aliceblue;
+}
+a{
+    text-decoration: none;
+}
+
+.logo img{
+    height: 50px;
+    width: 120px;
+}
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.searchBox{
+    padding: 15px;
+    background-color: #fff;
+    border: none;
+}
+
+.searchBtn{
+    border: none;
+    background-color: lightblue;
+    padding: 5px;
+}
+
+button{
+    background-color: seagreen;
+    padding: 5px 10px;
+    color: white;
+    letter-spacing: 1px;
+    border: none;
+    cursor: pointer;
+}
