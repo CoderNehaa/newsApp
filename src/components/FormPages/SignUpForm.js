@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { createUserAsync, userSelector, signInWithGoogle } from '../../redux/reducers/userReducer';
+import { toast } from "react-toastify";
 
 function SignUpForm () {
   const [values, setValues] = useState({name:"", email:"", pass:"", confirmPass:""});
@@ -20,7 +21,7 @@ function SignUpForm () {
   function handleSubmission(e){
     e.preventDefault();
     if(values.pass !== values.confirmPass){
-      alert("Password and confirm password does not match.");
+      toast.error("Password and confirm password does not match.");
       return;
     }
     dispatch(createUserAsync(values));

@@ -14,9 +14,13 @@ const divStyle = {
 }
 
 const spanStyle = {
-  fontSize: "20px",
-  background: "#efefef",
-  color: "#000000",
+  fontSize: "40px",
+  fontWeight:"bold",
+  padding:"30px",
+  textAlign:"center",
+  // background: "#efefef",
+  color: "maroon",
+  zIndex:"999"
 }
 
 const Carousel = ({data}) => {

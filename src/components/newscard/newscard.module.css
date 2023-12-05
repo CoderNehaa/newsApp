@@ -4,12 +4,13 @@
     padding: 25px;
     background-color: white;
     cursor: pointer;
+    position: sticky;
 }
 
-.newsBox:hover{
+/* .newsBox:hover{
     scale: 0.9;
     transition: all .5s;
-}
+} */
 
 .newsBox h2, p{
     overflow: hidden;
@@ -23,9 +24,22 @@
 .newsBox img{
     height: 250px;
     width: 400px;
+    opacity: 0.9;
+    z-index: 2;
 }
 
 .newsBox i{
     font-size: x-large;
     color: red;
 }
+.favBtn{
+    position: relative;
+    bottom: 250px;
+    left: 350px;
+}
+
+.favBtn i{
+    font-weight: bold;
+    z-index: 99;
+}
+

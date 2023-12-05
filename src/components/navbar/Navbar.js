@@ -25,12 +25,12 @@ const Navbar = () => {
                               </Link>
                       </div>
 
-                      {location.pathname==='/'?
+                      {/* {location.pathname==='/'?
                       <form className={pageStyle.searchBar}>
                         <input id="searchText" type="search" className={pageStyle.searchBox} placeholder="Search here.."/>
                         <button id="searchBtn" type="submit" className={pageStyle.searchBtn}><i className="fa-solid fa-magnifying-glass"></i></button>
                       </form>
-                      :null} 
+                      :null}  */}
 
                       <div className={pageStyle.profile} onMouseEnter={() => {setShowProfile(true)}} onMouseLeave={() => setShowProfile(false)}>
                         <i className="fa-solid fa-circle-user"></i>

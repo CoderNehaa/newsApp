@@ -15,8 +15,8 @@ const Profile = ({onMouseEnter, onMouseLeave}) => {
         {user ?<>
             <h1> Hello {user.name} </h1>
             <span> Welcome to our website </span>
-            <button onClick={() => dispatch(logOutAsync())}> Sign out <i class="fa-solid fa-arrow-right-from-bracket"></i> </button>
-            <div className={pageStyle.favoritesBtn}> <Link to='/favorites'> <i class="fa-solid fa-heart"></i> <span>My Favorites</span> </Link> </div> 
+            <button onClick={() => dispatch(logOutAsync())}> Sign out <i className="fa-solid fa-arrow-right-from-bracket"></i> </button>
+            <div className={pageStyle.favoritesBtn}> <Link to='/favorites'> <i className="fa-solid fa-heart"></i> <span>My Favorites</span> </Link> </div> 
             </>
             :<>
             <h1> Hello user </h1>

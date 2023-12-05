@@ -1,27 +1,33 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import db, { auth } from '../../firebase';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, onSnapshot, updateDoc, addDoc, collection, getDocs } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 import axios from 'axios';
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const INITIAL_STATE = {
     user:null,
     data:[],
-    loading:false
+    loading:false,
+    favorites:[]
 }
 
+// Fetch data from API
 export const fetchData = createAsyncThunk(
     "user/fetchData",
     async (arg, thunkAPI) => {
         const response = axios.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=6da980d2f4994618a8349b63eb4f8ae2')
         .then((res) => res.data)
         .then((data) => {
-            thunkAPI.dispatch(setData(data.articles))
+            thunkAPI.dispatch(setData(data.articles));
         });
     }
 )
 
+// Sign up
 export const createUserAsync = createAsyncThunk(
     "user/createUser",
     async (values, thunkAPI) => {
@@ -41,7 +47,7 @@ export const createUserAsync = createAsyncThunk(
             setDoc(userDocRef , currentUser);
             thunkAPI.dispatch(setUser(currentUser));
         }).catch((err) => {
-            console.log(err);
+            toast.error(err.message);
         })
     }
 )
@@ -62,7 +68,7 @@ export const logInAsync = createAsyncThunk(
             thunkAPI.dispatch(setUser(currentUser));
         })
         .catch((err) => {
-            console.log(err);
+            toast.error(err.message);
         })
     }
 )
@@ -81,7 +87,7 @@ export const signInWithGoogle = createAsyncThunk(
             }
             thunkAPI.dispatch(setUser(currentUser));
         }).catch((err) => {
-            console.log(err);
+            toast.error(err.message);
         })
     }
 )
@@ -95,7 +101,7 @@ export const logOutAsync = createAsyncThunk(
             console.log("signed out successfully ! ");
             thunkAPI.dispatch(setUser(null));
         }).catch((err) => {
-            console.log(err);
+            toast.error(err.message);
         })
     }
 )
@@ -117,18 +123,48 @@ export const authentication = createAsyncThunk(
         });
     }
 )
-const fetchFavorites = createAsyncThunk(
+
+export const fetchFavorites = createAsyncThunk(
     'user/fetchFavorites',
     async(arg, thunkAPI) => {
-
+        const { userReducer } =thunkAPI.getState();
+        const { user } = userReducer;
+        const unsub = onSnapshot(doc(db, "users", user.email), (doc) => {
+            thunkAPI.dispatch(setFavorites(doc.data().favorites))
+        });
     }
 )
-const addToFavorites= createAsyncThunk(
+
+export const addToFavorites= createAsyncThunk(
     'user/add',
-    async (arg, thunkAPI) => {
-
+    async (obj, thunkAPI) => {
+        const { userReducer } = thunkAPI.getState();
+        const { user, favorites } = userReducer; 
+        const item = {title:obj.title, publishedAt:obj.publishedAt, url:obj.url, urlToImage:obj.urlToImage, content:obj.content }
+        
+        const docRef = doc(db, "users", user.email);
+        await updateDoc(docRef, {
+            favorites:[...favorites, item]
+        });
+        toast.success('Article added to your favorites list.');
+        thunkAPI.dispatch(fetchFavorites());
     }
+)
 
+export const removeFromFavorites = createAsyncThunk(
+    'user/removeFavorite',
+    async (obj, thunkAPI) => {
+        const { userReducer } = thunkAPI.getState();
+        const { user, favorites } = userReducer; 
+        const updatedArray = favorites.filter((item) => item.title !== obj.title);
+        
+        const docRef = doc(db, "users", user.email);
+        await updateDoc(docRef, {
+            favorites:[...updatedArray]
+        });
+        toast.success('Article removed from your favorites list.');
+        thunkAPI.dispatch(fetchFavorites());
+    }
 )
 
 const userSlice = createSlice({
@@ -139,11 +175,14 @@ const userSlice = createSlice({
             state.user = action.payload
         },
         setData: (state, action) => {
-            state.data = action.payload
+            state.data = [...action.payload]
+        },
+        setFavorites:(state, action) => {
+            state.favorites = action.payload
         }
     }
 })
 
 export const userReducer = userSlice.reducer;
-export const { setUser, setData } = userSlice.actions;
+export const { setUser, setData, setFavorites } = userSlice.actions;
 export const userSelector = (state) => state.userReducer.user;
