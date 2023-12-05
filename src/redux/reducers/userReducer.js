@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import db, { auth } from '../../firebase';
 import { doc, setDoc } from 'firebase/firestore';
-import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 import axios from 'axios';
 
 const INITIAL_STATE = {
@@ -35,6 +35,7 @@ export const createUserAsync = createAsyncThunk(
                 name: res.user.displayName,
                 email: res.user.email,
                 password:values.pass,
+                favorites:[]
             }
             const userDocRef = doc(db , "users" , currentUser.email);
             setDoc(userDocRef , currentUser);
@@ -56,6 +57,7 @@ export const logInAsync = createAsyncThunk(
                 name: res.user.displayName,
                 email: res.user.email,
                 password:values.pass,
+                favorites:[]
             }
             thunkAPI.dispatch(setUser(currentUser));
         })
@@ -74,7 +76,8 @@ export const signInWithGoogle = createAsyncThunk(
         .then((res) => {
             const currentUser = {
                 name: res.user.displayName,
-                email: res.user.email
+                email: res.user.email,
+                favorites:[]
             }
             thunkAPI.dispatch(setUser(currentUser));
         }).catch((err) => {
@@ -95,6 +98,37 @@ export const logOutAsync = createAsyncThunk(
             console.log(err);
         })
     }
+)
+
+// Authentication
+export const authentication = createAsyncThunk(
+    'user/authentication',
+    async (arg, thunkAPI) => {
+        onAuthStateChanged(auth, (currentUser) => {
+            if(currentUser){
+                const user = {
+                    userId: currentUser.uid,
+                    name: currentUser.displayName,
+                    email: currentUser.email,
+                    favorites:[]
+                }
+                thunkAPI.dispatch(setUser(user));
+            }
+        });
+    }
+)
+const fetchFavorites = createAsyncThunk(
+    'user/fetchFavorites',
+    async(arg, thunkAPI) => {
+
+    }
+)
+const addToFavorites= createAsyncThunk(
+    'user/add',
+    async (arg, thunkAPI) => {
+
+    }
+
 )
 
 const userSlice = createSlice({

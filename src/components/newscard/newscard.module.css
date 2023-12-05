@@ -24,3 +24,8 @@
     height: 250px;
     width: 400px;
 }
+
+.newsBox i{
+    font-size: x-large;
+    color: red;
+}

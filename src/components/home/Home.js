@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchData, userSelector } from '../../redux/reducers/userReducer';
 import NewsCard from '../newscard/NewsCard';
 import pageStyle from './home.module.css';
+import Carousel from '../Carousel';
 
 const Home = () => {
   const user = useSelector(userSelector);
@@ -68,9 +69,9 @@ const Home = () => {
     },
   ]
 
-  // useEffect(() => {
-  //   // dispatch(fetchData());
-  // }, [data])
+  useEffect(() => {
+    // dispatch(fetchData());
+  }, [data])
 
   return (
     <div>
@@ -95,7 +96,7 @@ const Home = () => {
         <span> Elections </span>
         <span> Terrorism </span>
       </div>
-
+      <Carousel data={data}/>
       <div className={pageStyle.container}>{
         data.map((news, index) => 
           {

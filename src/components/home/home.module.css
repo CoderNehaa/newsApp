@@ -8,15 +8,17 @@
 .categories{
     position: relative;
     max-width: 100%;
-    background-color: seagreen;
+    background-color: #7d2222;
     opacity: 0.8;
     padding: 10px;
     color: white;
     display: flex;
     justify-content: space-evenly;
     font-size: large;
+    margin-bottom: 25px;
 }
 
 .categories span{
     margin: 0px 8px;
+    cursor: pointer;
 }

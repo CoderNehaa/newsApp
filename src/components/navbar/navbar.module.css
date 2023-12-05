@@ -1,27 +1,41 @@
 nav{
-    background-color: seagreen;
-    position: relative;
+    height: 55px;
+    background-color: var(--main-color);
     max-width: 100%;
     padding: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     color: white;
-}
-a{
-    text-decoration: none;
-    color: white;
-}
-
-.logo img{
-    height: 50px;
-    width: 120px;
 }
 
 .container{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
     align-items: center;
 }
 
+/* Brand */
+.logo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    left: 100px;    
+    font-family: ui-rounded;
+    letter-spacing: .5px;
+}
+
+.logo a{
+    color: white;
+}
+
+.brandName{
+    font-style: oblique;
+    letter-spacing: 1px;
+    font-size: x-large;
+}
+
+/* Search bar */
 .searchBar{
     border-radius: 10px;
     width: 400px;
@@ -45,19 +59,9 @@ a{
     border: none;
     font-size: x-large;
     background-color: lightblue;
-    
 }
 
-.ticket button{
-    background-color: seagreen;
-    padding: 5px 10px;
-    color: white;
-    font-size: large;
-    letter-spacing: 1px;
-    border: none;
-    margin: 8px 3px;
-    cursor: pointer;
-}
+/* Profile section */
 
 .profile{
     display: flex;
@@ -67,35 +71,62 @@ a{
     cursor: pointer;
 }
 
-.ticket{
+.profile i{
+    position: fixed;
+    right: 100px;
+    font-size: xxx-large;
+}
+
+.profileCard{
     letter-spacing: 1px;
-    background-color: lavender;
+    background-color: white;
     padding: 12px 25px;
     margin: 5px;
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 45px;
-    right: 300px;
+    top: 65px;
+    right: 20px;
     text-align: left;
     cursor: pointer;
     z-index: 999;
     color: black;
 }
 
-.ticket h2{
-    margin: 4px;
+.profileCard h1{
+    margin: 5px;
 }
 
-.border{
-    margin-bottom: 8px;
+.profileCard button{
+    background-color: var(--main-color);
+    padding: 12px 18px;
+    color: white;
+    font-size: x-large;
+    letter-spacing: 1px;
+    border: none;
+    margin: 10px 3px;
+    cursor: pointer;
+    z-index: 1;
+    box-shadow: 0px 0px 1px 1px lightgray;
 }
 
+.profileCard button a{
+    color: white;
+}
 
-/* Topic line below navbar */
-/* Search bar */
-/* brand name -  */
-/* Slide */
-/* Responsive */
-/* Favorites */
-/* formpage background video = news */
+.favoritesBtn{
+    padding: 5px;
+    font-weight: bold;
+    font-size: large;
+    letter-spacing: 1px;
+    box-shadow: 0px 0px 1px 1px lightgray;
+    margin-bottom: 10px;
+}
+
+.favoritesBtn i{
+    margin-right: 5px;
+}
+
+.favoritesBtn a{
+    color: black;
+}
