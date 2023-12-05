@@ -1,44 +1,54 @@
 .pageStyle {
-    height: 100%;
-    min-height: 100vh;
-    width: 500px;
     margin: auto;
+    margin-top: 50px;
+    width: 400px;
+    padding: 25px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: center;
+    box-shadow: 0px 0px 4px 2px #f3e9e9;
 }
 
 :root{
-    --primary-color:#39a3c6
+    --primary-color:red 
 }
 
 .pageStyle h1{
     color: var(--primary-color);
     font-size: xxx-large;
+    margin: 2px;
+}
+
+.pageStyle form{
+    margin: 30px 0px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 
 .pageStyle input{
     font-size: 20px;
-    width: 400px;
+    width: auto;
     padding: 15px;
-    margin: 10px;
-    border-radius: 15px;
+    margin: 10px 0px;
     background: transparent;
     border: 1px solid gray;
 }
 
 .pageStyle button{
     font-size: 25px;
-    width: 400px;
+    width: auto;
     padding: 15px;
-    margin: 15px;
+    margin: 15px 0px;
     border: none;
-    border-radius: 15px;
     color: white;
     background-color: var(--primary-color);
 }
 
+.otherPageLink{
+    margin: 15px;
+    text-align: center;
+}
 
 /* Responsiveness */
 

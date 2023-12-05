@@ -42,9 +42,9 @@ function SignUpForm () {
             <span> Sign In with Google </span> 
         </button>
         </form>
-
-        <Link to='/signin' className="linkStyle"> Or Signin instead </Link>
       </div>
+      
+      <div className={formStyle.otherPageLink}><Link to='/signin' className="linkStyle"> Already have an account? Sign in. </Link></div>
     </div>
   )
 }

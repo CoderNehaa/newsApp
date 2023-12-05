@@ -3,11 +3,24 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import db, { auth } from '../../firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import axios from 'axios';
 
 const INITIAL_STATE = {
     user:null,
+    data:[],
     loading:false
 }
+
+export const fetchData = createAsyncThunk(
+    "user/fetchData",
+    async (arg, thunkAPI) => {
+        const response = axios.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=6da980d2f4994618a8349b63eb4f8ae2')
+        .then((res) => res.data)
+        .then((data) => {
+            thunkAPI.dispatch(setData(data.articles))
+        });
+    }
+)
 
 export const createUserAsync = createAsyncThunk(
     "user/createUser",
@@ -90,6 +103,9 @@ const userSlice = createSlice({
     reducers:{
         setUser: (state, action) => {
             state.user = action.payload
+        },
+        setData: (state, action) => {
+            state.data = action.payload
         }
     }
 })

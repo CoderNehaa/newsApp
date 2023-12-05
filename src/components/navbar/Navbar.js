@@ -1,15 +1,16 @@
 import pageStyle from  './navbar.module.css';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { userSelector, logOutAsync } from '../../redux/reducers/userReducer';
+import Profile from './Profile';
+import { useSelector } from 'react-redux';
+import { userSelector } from '../../redux/reducers/userReducer';
 
 const Navbar = () => {
+  const[showProfile, setShowProfile] = useState(false);
   const user = useSelector(userSelector);
-  const dispatch = useDispatch();
-  
+
   return (
     <>
         <nav>
@@ -17,23 +18,20 @@ const Navbar = () => {
 
                     <div className={pageStyle.container}>
                       <Link to="/">
-                        <a href="#" className={pageStyle.logo}>
-                          <img src="https://t3.ftcdn.net/jpg/03/07/93/88/360_F_307938835_NChzYE26DIyfzHdAdW722BTaOnjaHSqV.jpg" alt="company logo"/>
-                        </a>
+                          <div>NEWS NATION</div> 
+                          <span> The only news you need to know </span>
                       </Link>
                       
-                      <div className={pageStyle.searchBar}>
-                          <input id="searchText" type="text" className={pageStyle.searchBox} placeholder="Search here.."/>
-                          <button id="searchBtn" className={pageStyle.searchBtn}>Search</button>
-                      </div>
+                      <form className={pageStyle.searchBar}>
+                        <input id="searchText" type="search" className={pageStyle.searchBox} placeholder="Search here.."/>
+                        <button id="searchBtn" type="submit" className={pageStyle.searchBtn}><i className="fa-solid fa-magnifying-glass"></i></button>
+                      </form>
 
-                      <div>
-                        {user
-                        ?<button onClick={() => dispatch(logOutAsync())}> Sign Out </button>
-                        :<Link to="/signin"> <button> Sign In </button> </Link>}
-                        <Link to="/signup"> <button> Sign Up </button> </Link>
-                        
+                      <div className={pageStyle.profile} onMouseEnter={() => {setShowProfile(true)}} onMouseLeave={() => setShowProfile(false)}>
+                        <i className="fa-solid fa-circle-user"></i> <span> {user ? user.name:"Profile"} </span>
                       </div>
+                      
+                      {showProfile?<Profile onMouseEnter={() => setShowProfile(true)} onMouseLeave={() => setShowProfile(false)} /> :null}
                     </div>
                 </div>
             </nav>

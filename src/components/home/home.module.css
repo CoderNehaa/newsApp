@@ -1,0 +1,22 @@
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    background-color: aliceblue;
+}
+
+.categories{
+    position: relative;
+    max-width: 100%;
+    background-color: seagreen;
+    opacity: 0.8;
+    padding: 10px;
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: large;
+}
+
+.categories span{
+    margin: 0px 8px;
+}

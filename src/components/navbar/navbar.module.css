@@ -1,8 +1,13 @@
-.navbar{
-    background-color: aliceblue;
+nav{
+    background-color: seagreen;
+    position: relative;
+    max-width: 100%;
+    padding: 20px;
+    color: white;
 }
 a{
     text-decoration: none;
+    color: white;
 }
 
 .logo img{
@@ -17,23 +22,80 @@ a{
     align-items: center;
 }
 
+.searchBar{
+    border-radius: 10px;
+    width: 400px;
+    display: flex;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
 .searchBox{
-    padding: 15px;
     background-color: #fff;
     border: none;
+    width: 85%;
+    padding: 15px;
+    font-size: large;
+    letter-spacing: 1px;
+    outline: none;
 }
 
 .searchBtn{
+    width: 15%;
     border: none;
+    font-size: x-large;
     background-color: lightblue;
-    padding: 5px;
+    
 }
 
-button{
+.ticket button{
     background-color: seagreen;
     padding: 5px 10px;
     color: white;
+    font-size: large;
     letter-spacing: 1px;
     border: none;
+    margin: 8px 3px;
     cursor: pointer;
 }
+
+.profile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.ticket{
+    letter-spacing: 1px;
+    background-color: lavender;
+    padding: 12px 25px;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 45px;
+    right: 300px;
+    text-align: left;
+    cursor: pointer;
+    z-index: 999;
+    color: black;
+}
+
+.ticket h2{
+    margin: 4px;
+}
+
+.border{
+    margin-bottom: 8px;
+}
+
+
+/* Topic line below navbar */
+/* Search bar */
+/* brand name -  */
+/* Slide */
+/* Responsive */
+/* Favorites */
+/* formpage background video = news */
