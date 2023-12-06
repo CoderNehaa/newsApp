@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchData, fetchFavorites, onCategoryClick } from '../../redux/reducers/userReducer';
-import NewsCard from '../newscard/NewsCard';
+
 import pageStyle from './home.module.css';
+
+import NewsCard from '../newscard/NewsCard';
 import Carousel from '../Carousel';
+import Loader from '../Loader';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -18,7 +21,7 @@ const Home = () => {
 
   return (
     <>
-    {loading? <h1> Data is loading..... </h1> :
+    {loading? <Loader/> :
     <div>
       <div className={pageStyle.categories}>
           {categoriesArray.map((obj, index) => 
