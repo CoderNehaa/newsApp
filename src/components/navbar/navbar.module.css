@@ -5,7 +5,8 @@ nav{
     z-index: 2;
     top: 0;
     left: 0;
-    min-width: 100vw;
+    width: 100vw;
+    max-width: 100vw;
 }
 
 .navbar{
@@ -16,6 +17,7 @@ nav{
 .container{
     padding: 20px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
     min-height: 45px;
@@ -44,8 +46,7 @@ nav{
 
 /* Search bar */
 .searchBar{
-    border-radius: 10px;
-    width: 400px;
+    width: 600px;
     display: flex;
     border-radius: 25px;
     overflow: hidden;
@@ -113,11 +114,11 @@ nav i{
 
 .profileCard button{
     background-color: var(--main-color);
-    padding: 12px 18px;
     color: white;
     font-size: x-large;
     letter-spacing: 1px;
     border: none;
+    padding: 12px 18px;
     margin: 10px 3px;
     cursor: pointer;
     z-index: 1;
@@ -145,6 +146,7 @@ nav i{
     color: black;
 }
 
+/* Categories Line - block */
 .categories{
     padding: 10px;
     color: white;
@@ -160,3 +162,111 @@ nav i{
     margin: 0px 8px;
     cursor: pointer;
 }
+
+/* Responsiveness */
+@media screen and (max-width:1400px){
+    .searchBar{
+        width: 400px;
+    }
+}
+
+@media screen and (max-width:1200px) {
+    .logo{
+        left: 50px;
+    }
+    .profile{
+        right: 50px;
+    }
+    .searchBar{
+        margin-left: 50px;
+        width: 350px;
+    }
+}
+
+@media screen and (max-width:1050px){
+    .searchBar{
+        margin-left: 150px;
+    }    
+    .searchBox{
+        padding: 12px;
+    }
+}
+
+@media screen and (max-width:850px){
+    .searchBar{
+        border: 1px solid #883f3f;
+        position: fixed;
+        top: 18px;
+        right: 80px;
+        width: 300px;
+    }
+    .profile{
+        right: 15px;
+    }
+    .searchBox, .searchBtn{
+        background: #883f3f;
+    }
+}
+@media screen and (max-width:720px){
+    .navbar{
+        height: 140px;
+    }
+    .searchBar{
+        margin: 1px 5px;
+        top: 80px;
+        right: 5px;
+        width: 95%;
+    }
+    .logo{
+        left: 10px;
+    }
+}
+
+@media screen and (max-width:400px){
+    .navbar{
+        height: 120px;
+        max-width: 100vw;
+    }
+    .container{
+        padding: 8px;
+        align-items: center;
+    }
+    .brandName{
+        font-size: large;
+    }
+    .profile{
+        right: 50px;
+        font-size: xx-large;
+    }
+    .searchBox{
+        padding: 8px;
+    }
+    .searchBar{
+        top: 65px;
+    }
+    .categories{
+        display: none;
+    }   
+    .logo{
+        font-style: italic;
+    }
+    .brandName{
+        font-family: math;
+    }
+    .profileCard{
+        top: 42px;
+        right: 0px;
+        padding: 18px 15px;
+    }
+    .homeIcon{
+        right: 15px;
+        font-size: 15px;
+    }
+    .profileCard button{
+        font-size: large;
+        padding: 8px 10px;
+        margin: 8px 3px;
+    
+    }
+}
+/* In categories array, last word is disappearing from 1306, more */

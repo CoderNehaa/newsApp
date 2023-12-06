@@ -32,37 +32,46 @@ const Navbar = () => {
                       <div className={pageStyle.logo}>
                         <a href='/'>
                             <div className={pageStyle.brandName}>NEWS TIMES </div>
-                            <span> The only news you need to know </span>
+                            <span className={pageStyle.slogan}> Unbiased, accurate, fastest </span>
                         </a>
                       </div>
 
-                      {location.pathname==='/'?
-                      <form className={pageStyle.searchBar} onSubmit={handleSubmit}>
-                        <input id="searchText" type="search" className={pageStyle.searchBox} placeholder="Search here.." 
-                              onChange={(e) => {
-                                setSearchText(e.target.value)
-                              }} 
-                            />
-                        <button id="searchBtn" className={pageStyle.searchBtn}><i className="fa-solid fa-magnifying-glass"></i></button>
-                      </form>
-                      :null} 
-
-                      <div className={pageStyle.homeIcon}> 
-                        {location.pathname==='/favorites'? <Link to='/'> <i className="fa-solid fa-house"></i> </Link>:null} 
+                      <div>
+                        {location.pathname==='/'?
+                        <form className={pageStyle.searchBar} onSubmit={handleSubmit}>
+                          <input id="searchText" type="search" className={pageStyle.searchBox} placeholder="Search here.." 
+                                onChange={(e) => {
+                                  setSearchText(e.target.value)
+                                }} 
+                              />
+                          <button id="searchBtn" className={pageStyle.searchBtn}><i className="fa-solid fa-magnifying-glass"></i></button>
+                        </form>
+                        :null} 
                       </div>
+ 
+                      {/* {location.pathname==='/favorites'
+                        ?<div className={pageStyle.homeIcon}><Link to='/'> <i className="fa-solid fa-house"></i> </Link></div>
+                        :null
+                      }  */}
 
                       <div className={pageStyle.profile} onMouseEnter={() => {setShowProfile(true)}} onMouseLeave={() => setShowProfile(false)}>
                         <i className="fa-solid fa-circle-user"></i>
                       </div>
                       
-                      {showProfile?<Profile onMouseEnter={() => setShowProfile(true)} onMouseLeave={() => setShowProfile(false)} /> :null}
+                      {showProfile
+                        ?<Profile onMouseEnter={() => setShowProfile(true)} onMouseLeave={() => setShowProfile(false)} /> 
+                        :null
+                      }
                     </div>
-
-                    <div className={pageStyle.categories}>
-                      {categoriesArray.map((obj, index) => 
-                        <span className='categoryItem' key={index} onClick={() => dispatch(onCategoryClick(obj))} id={`${obj}`}> {obj} </span>
-                      )}
-                    </div>
+                              
+                    {/* {location.pathname==='/favorites' || location.pathname === '/'
+                      ?<div className={pageStyle.categories}>
+                        {categoriesArray.map((obj, index) => 
+                          <span className='categoryItem' key={index} onClick={() => dispatch(onCategoryClick(obj))} id={`${obj}`}> {obj} </span>
+                        )}
+                      </div>
+                      :null
+                    } */}
                 </div>
             </nav>
           <Outlet/> 

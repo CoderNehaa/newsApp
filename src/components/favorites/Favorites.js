@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import pageStyle from './favorites.module.css';
 
-import { removeFromFavorites } from '../../redux/reducers/userReducer';
+import { fetchFavorites, removeFromFavorites } from '../../redux/reducers/userReducer';
 import { Link } from 'react-router-dom';
 
 const Favorites = () => {
   const dispatch = useDispatch();
   const favoritesList = useSelector((state) => state.userReducer.favorites);
-    
+
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [])
+
+  function handleClick(url){
+    window.open(url, '_blank');
+  }
+
     return (
       <div className={pageStyle.favPage}>
         <h1 className={pageStyle.headline}> Your Favorite Articles </h1>
@@ -24,9 +32,11 @@ const Favorites = () => {
                 <button onClick={() => dispatch(removeFromFavorites(news))} className={pageStyle.favBtn}> 
                   <i className="fa-solid fa-heart-circle-minus"></i> 
                 </button>
-                <h2> {news.title} </h2>
-                <h4> {news.publishedAt} </h4>
-                <p> {news.content} </p>
+                <div onClick={() => handleClick(news.url)}>
+                  <h2> {news.title} </h2>
+                  <h4> {news.publishedAt} </h4>
+                  <p> {news.content} </p>
+                </div>
               </div>  
               ))}
           </div>

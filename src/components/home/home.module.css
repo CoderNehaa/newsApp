@@ -8,3 +8,10 @@
 .homePage{
     margin-top: 150px;
 }
+
+/* Responsiveness */
+@media screen and (max-width:400px) {
+    .homePage{
+        margin-top: 130px;
+    }
+}

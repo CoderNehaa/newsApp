@@ -5,19 +5,23 @@
 .headline{
     text-align: center;
     letter-spacing: 1px;
+    font-size: xxx-large;
+}
+
+.favoritesBox{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
 }
 
 .newsBox{
     width: 400px;
     margin: 15px;
     padding: 25px;
-    background-color: white;
-    cursor: pointer;
-}
-
-.newsBox:hover{
-    scale: 0.9;
-    transition: all .5s;
+    background-color: aliceblue;
+    font-size: 20px;
+    text-align: justify;
 }
 
 .newsBox h2, p{
@@ -27,6 +31,7 @@
     -webkit-line-clamp: 3;
     line-clamp: 2;
     -webkit-box-orient: vertical;
+    cursor: pointer;
 }
 
 .newsBox img{
@@ -37,11 +42,6 @@
 .newsBox i{
     font-size: x-large;
     color: red;
-}
-
-.favoritesBox{
-    display: flex;
-    flex-wrap: wrap;
 }
 
 .favBtn{
@@ -64,3 +64,29 @@
     text-decoration: underline;
     color: var(--main-color);
 }
+
+/* Responsiveness */
+
+@media screen and (max-width:400px){
+    .headline{
+        font-size: xx-large;
+    }
+    .newsBox{
+        width: 320px;
+        margin: 5px 0px;
+        padding: 0px 5px;
+        margin: 0px;
+        text-align: justify;
+    }
+    .newsBox h2, h4{
+        margin: 4px;
+    }
+    .newsBox img{
+        width: 350px;
+    }
+    .favBtn{
+        left: 88%;
+        bottom: 250px;
+    }
+}
+

@@ -37,7 +37,7 @@ const SignInForm = () => {
         </form>
       </div>
 
-      <div className={formStyle.otherPageLink}> <Link to='/signup' className="linkStyle">  Don't have an account? Sign Up for personalised feed. </Link> </div>
+      <div className={formStyle.otherPageLink}> <Link to='/signup' className="linkStyle">  Don't have an account? Sign Up. </Link> </div>
     </div>
   )
 }
