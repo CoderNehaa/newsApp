@@ -18,7 +18,6 @@ const spanStyle = {
   fontWeight:"bold",
   padding:"30px",
   textAlign:"center",
-  // background: "#efefef",
   color: "maroon",
   zIndex:"999"
 }
@@ -27,10 +26,14 @@ const Carousel = ({data}) => {
   function handleClick(url){
     window.location.href = url;
   }
+  const slideProperties = {
+    duration: 3000,
+    transitionDuration: 500
+  };
 
  return (
     <div>
-      <Slide>
+      <Slide {...slideProperties}>
         {data.map((news, index) => {
           if(news.urlToImage){
             return (
@@ -48,4 +51,3 @@ const Carousel = ({data}) => {
 }
 
 export default Carousel;
-// Clicking will go to article page

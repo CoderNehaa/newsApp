@@ -26,3 +26,9 @@ button{
   background: transparent;
   cursor: pointer;
 }
+
+.categoryItem.activeBorder{
+  border-bottom: 3px solid white;
+  background-color: green;
+}
+

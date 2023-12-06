@@ -4,13 +4,19 @@ import React, { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
 import Profile from './Profile';
-import { useSelector } from 'react-redux';
-import { userSelector } from '../../redux/reducers/userReducer';
+import { useDispatch } from 'react-redux';
+import { fetchData } from '../../redux/reducers/userReducer';
 
 const Navbar = () => {
   const[showProfile, setShowProfile] = useState(false);
-  const user = useSelector(userSelector);
+  const [searchText, setSearchText] = useState('');
   const location = useLocation();
+  const dispatch = useDispatch();
+  
+  function handleSubmit(e){
+    e.preventDefault();
+    dispatch(fetchData(searchText));
+  }
 
   return (
     <>
@@ -25,13 +31,18 @@ const Navbar = () => {
                               </Link>
                       </div>
 
-                      {/* {location.pathname==='/'?
-                      <form className={pageStyle.searchBar}>
-                        <input id="searchText" type="search" className={pageStyle.searchBox} placeholder="Search here.."/>
-                        <button id="searchBtn" type="submit" className={pageStyle.searchBtn}><i className="fa-solid fa-magnifying-glass"></i></button>
+                      {location.pathname==='/'?
+                      <form className={pageStyle.searchBar} onSubmit={handleSubmit}>
+                        <input id="searchText" type="search" className={pageStyle.searchBox} placeholder="Search here.." 
+                              onChange={(e) => setSearchText(e.target.value)} 
+                            />
+                        <button id="searchBtn" className={pageStyle.searchBtn}><i className="fa-solid fa-magnifying-glass"></i></button>
                       </form>
-                      :null}  */}
+                      :null} 
 
+                      <div className={pageStyle.homeIcon}> 
+                        {location.pathname==='/favorites'? <Link to='/'> <i className="fa-solid fa-house"></i> </Link>:null} 
+                      </div>
                       <div className={pageStyle.profile} onMouseEnter={() => {setShowProfile(true)}} onMouseLeave={() => setShowProfile(false)}>
                         <i className="fa-solid fa-circle-user"></i>
                       </div>

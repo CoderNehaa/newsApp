@@ -10,7 +10,7 @@ const Favorites = () => {
     
     return (
       <>
-        <h1> Favorites </h1>
+        <h1> Your Favorite Articles </h1>
         <div className={pageStyle.favoritesBox}>
           {favoritesList.map((news, index) => (
             <div className={pageStyle.newsBox} key={index}>

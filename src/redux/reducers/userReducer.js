@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import db, { auth } from '../../firebase';
-import { doc, setDoc, onSnapshot, updateDoc, addDoc, collection, getDocs } from 'firebase/firestore';
-import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
+import { doc, setDoc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, GoogleAuthProvider, signOut, onAuthStateChanged, signInWithPopup } from "firebase/auth";
 import axios from 'axios';
 
 import { toast } from 'react-toastify';
@@ -18,12 +18,14 @@ const INITIAL_STATE = {
 // Fetch data from API
 export const fetchData = createAsyncThunk(
     "user/fetchData",
-    async (arg, thunkAPI) => {
-        const response = axios.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=6da980d2f4994618a8349b63eb4f8ae2')
+    async (query, thunkAPI) => {
+        thunkAPI.dispatch(setLoading(true));
+        const response = await axios.get(`https://newsapi.org/v2/everything?q=${query}&apiKey=ff80671a5bfe44f4aad4bcf496769393`)
         .then((res) => res.data)
         .then((data) => {
             thunkAPI.dispatch(setData(data.articles));
         });
+        thunkAPI.dispatch(setLoading(false));
     }
 )
 
@@ -65,6 +67,8 @@ export const logInAsync = createAsyncThunk(
                 password:values.pass,
                 favorites:[]
             }
+            const userDocRef = doc(db , "users" , currentUser.email);
+            setDoc(userDocRef , currentUser);
             thunkAPI.dispatch(setUser(currentUser));
         })
         .catch((err) => {
@@ -78,6 +82,7 @@ export const signInWithGoogle = createAsyncThunk(
     "user/signInWithGoogle",
     async (arg, thunkAPI) => {
         const provider = new GoogleAuthProvider();
+        
         await signInWithPopup(auth, provider)
         .then((res) => {
             const currentUser = {
@@ -85,6 +90,8 @@ export const signInWithGoogle = createAsyncThunk(
                 email: res.user.email,
                 favorites:[]
             }
+            const userDocRef = doc(db , "users" , currentUser.email);
+            setDoc(userDocRef , currentUser);
             thunkAPI.dispatch(setUser(currentUser));
         }).catch((err) => {
             toast.error(err.message);
@@ -124,14 +131,19 @@ export const authentication = createAsyncThunk(
     }
 )
 
+// Fetch favorite articles list
 export const fetchFavorites = createAsyncThunk(
     'user/fetchFavorites',
     async(arg, thunkAPI) => {
         const { userReducer } =thunkAPI.getState();
         const { user } = userReducer;
-        const unsub = onSnapshot(doc(db, "users", user.email), (doc) => {
-            thunkAPI.dispatch(setFavorites(doc.data().favorites))
-        });
+        if(user){
+            const unsub = onSnapshot(doc(db, "users", user.email), (doc) => {
+                if(doc.data()){
+                    thunkAPI.dispatch(setFavorites(doc.data().favorites))
+                }
+            });
+        }
     }
 )
 
@@ -167,6 +179,14 @@ export const removeFromFavorites = createAsyncThunk(
     }
 )
 
+// See news according to category choosen
+export const onCategoryClick = createAsyncThunk (
+    'user/specificdata',
+    async (category, thunkAPI) => {
+        thunkAPI.dispatch(fetchData(category));
+    }
+)
+
 const userSlice = createSlice({
     name:'userInfo',
     initialState:INITIAL_STATE,
@@ -179,10 +199,13 @@ const userSlice = createSlice({
         },
         setFavorites:(state, action) => {
             state.favorites = action.payload
+        },
+        setLoading:(state, action) => {
+            state.loading = action.payload
         }
     }
 })
 
 export const userReducer = userSlice.reducer;
-export const { setUser, setData, setFavorites } = userSlice.actions;
+export const { setUser, setData, setFavorites, setLoading } = userSlice.actions;
 export const userSelector = (state) => state.userReducer.user;

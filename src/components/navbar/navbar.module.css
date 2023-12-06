@@ -4,6 +4,8 @@ nav{
     max-width: 100%;
     padding: 20px;
     display: flex;
+    flex-wrap: wrap;
+    align-content: center;
     justify-content: space-evenly;
     align-items: center;
     color: white;
@@ -62,18 +64,25 @@ nav{
 }
 
 /* Profile section */
-
-.profile{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+nav i{
     cursor: pointer;
 }
 
-.profile i{
+.homeIcon{
     position: fixed;
+    right: 250px;
+    font-size: xxx-large;
+}
+
+.homeIcon a{
+    color: white;
+}
+
+.profile{
+    display: flex;
+    align-items: center;
     right: 100px;
+    position: fixed;
     font-size: xxx-large;
 }
 
