@@ -24,7 +24,7 @@ const spanStyle = {
 
 const Carousel = ({data}) => {
   function handleClick(url){
-    window.location.href = url;
+    window.open(url, '_blank');
   }
   const slideProperties = {
     duration: 3000,

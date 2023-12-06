@@ -1,12 +1,12 @@
 .pageStyle {
     margin: auto;
-    margin-top: 50px;
     width: 400px;
     padding: 25px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     box-shadow: 0px 0px 4px 2px #f3e9e9;
+    margin-top: 180px;
 }
 
 .pageStyle h1{

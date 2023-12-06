@@ -33,6 +33,7 @@ export const fetchData = createAsyncThunk(
 export const createUserAsync = createAsyncThunk(
     "user/createUser",
     async (values, thunkAPI) => {
+        thunkAPI.dispatch(setLoading(true));
         createUserWithEmailAndPassword(auth, values.email, values.pass)
         .then(async(res) => {
             console.log("signed up successfully.")
@@ -48,7 +49,9 @@ export const createUserAsync = createAsyncThunk(
             const userDocRef = doc(db , "users" , currentUser.email);
             setDoc(userDocRef , currentUser);
             thunkAPI.dispatch(setUser(currentUser));
+            thunkAPI.dispatch(setLoading(false));
         }).catch((err) => {
+            thunkAPI.dispatch(setLoading(false));
             toast.error(err.message);
         })
     }
@@ -58,6 +61,7 @@ export const createUserAsync = createAsyncThunk(
 export const logInAsync = createAsyncThunk(
     "user/login",
     async (values, thunkAPI) => {
+        thunkAPI.dispatch(setLoading(true));
         await signInWithEmailAndPassword(auth, values.email, values.pass)
         .then(async (res) => {
             console.log('signed in successfully');
@@ -70,9 +74,11 @@ export const logInAsync = createAsyncThunk(
             const userDocRef = doc(db , "users" , currentUser.email);
             setDoc(userDocRef , currentUser);
             thunkAPI.dispatch(setUser(currentUser));
+            thunkAPI.dispatch(setLoading(false));
         })
         .catch((err) => {
             toast.error(err.message);
+            thunkAPI.dispatch(setLoading(false));
         })
     }
 )
@@ -81,6 +87,7 @@ export const logInAsync = createAsyncThunk(
 export const signInWithGoogle = createAsyncThunk(
     "user/signInWithGoogle",
     async (arg, thunkAPI) => {
+        thunkAPI.dispatch(setLoading(true));
         const provider = new GoogleAuthProvider();
         
         await signInWithPopup(auth, provider)
@@ -93,8 +100,10 @@ export const signInWithGoogle = createAsyncThunk(
             const userDocRef = doc(db , "users" , currentUser.email);
             setDoc(userDocRef , currentUser);
             thunkAPI.dispatch(setUser(currentUser));
+            thunkAPI.dispatch(setLoading(false));
         }).catch((err) => {
             toast.error(err.message);
+            thunkAPI.dispatch(setLoading(false));
         })
     }
 )

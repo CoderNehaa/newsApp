@@ -12,7 +12,7 @@ const NewsCard = ({news}) => {
   }
 
   function handleClick(){
-    window.location.href = news.url;
+    window.open(news.url, '_blank')
   }
 
   return (
@@ -24,7 +24,7 @@ const NewsCard = ({news}) => {
             :<button onClick={() => dispatch(addToFavorites(news))} className={pageStyle.favBtn}><i className="fa-solid fa-heart-circle-plus"></i></button>
           } 
 
-        <div onClick={handleClick}>
+        <div onClick={handleClick} className={pageStyle.newsContent}>
           <h2> {news.title} </h2>
           <h4> {news.publishedAt} </h4>
           <p> {news.content} </p>

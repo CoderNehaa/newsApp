@@ -3,14 +3,8 @@
     margin: 15px;
     padding: 25px;
     background-color: white;
-    cursor: pointer;
     position: sticky;
 }
-
-/* .newsBox:hover{
-    scale: 0.9;
-    transition: all .5s;
-} */
 
 .newsBox h2, p{
     overflow: hidden;
@@ -43,3 +37,6 @@
     z-index: 99;
 }
 
+.newsContent{
+    cursor: pointer;
+}

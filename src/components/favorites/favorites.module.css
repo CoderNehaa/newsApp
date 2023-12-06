@@ -1,3 +1,11 @@
+.favPage{
+    margin-top: 150px;
+}
+
+.headline{
+    text-align: center;
+    letter-spacing: 1px;
+}
 
 .newsBox{
     width: 400px;
@@ -45,4 +53,14 @@
 .favBtn i{
     font-weight: bold;
     z-index: 99;
+}
+
+.noArticles{
+    font-size: 25px;
+}
+
+.noArticles a{
+    font-weight: bold;
+    text-decoration: underline;
+    color: var(--main-color);
 }

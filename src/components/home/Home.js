@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchData, fetchFavorites, onCategoryClick } from '../../redux/reducers/userReducer';
+import { fetchData, fetchFavorites } from '../../redux/reducers/userReducer';
 
 import pageStyle from './home.module.css';
 
@@ -12,7 +12,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.userReducer.loading);
   const data = useSelector((state) => state.userReducer.data);
-  const categoriesArray = ["Politics", "Sports", "Education", "Tech", "Business", "Entertainment","Lifestyle","Research","Investigations","Elections","Terrorism","IPL","Pharmacy Industry", "Careers","Movies","Music"];
   
   useEffect(() => {
     dispatch(fetchData('world'));
@@ -22,12 +21,7 @@ const Home = () => {
   return (
     <>
     {loading? <Loader/> :
-    <div>
-      <div className={pageStyle.categories}>
-          {categoriesArray.map((obj, index) => 
-            <span className='categoryItem' key={index} onClick={() => dispatch(onCategoryClick(obj))} id={`${obj}`}> {obj} </span>
-          )}
-      </div>
+    <div className={pageStyle.homePage}>
       <Carousel data={data}/>
       <div className={pageStyle.container}>{
         data.map((news, index) => 
